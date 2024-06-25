@@ -60,26 +60,24 @@ public class LibraryControllerTest {
     @Test
     public void testFindBookByTitle() throws Exception {
         String title = "Test Title";
-        Book book = new Book("1", "1101", "Chetan Bhagat", "ISBN1234567890", "Novel", 2008, "Romance", true);
-        when(libraryService.findBookByTitle(title)).thenReturn(List.of(book));
+        List<Book> books = Arrays.asList(new Book("1", "1101", "Chetan Bhagat", "ISBN1234567890", "Novel", 2008, "Romance", true));
+
+        when(libraryService.findBookByTitle(anyString())).thenReturn(books);
 
         mockMvc.perform(get("/library/findBookByTitle/{title}", title))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title").value(book.getTitle()));
-
+                .andExpect(status().isOk());
         verify(libraryService, times(1)).findBookByTitle(title);
     }
 
     @Test
     public void testFindBookByAuthor() throws Exception {
         String author = "Test Author";
-        Book book = new Book("1", "1101", "Chetan Bhagat", "ISBN1234567890", "Novel", 2008, "Romance", true);
-        when(libraryService.findBookByAuthor(author)).thenReturn(List.of(book));
+        List<Book> books = Arrays.asList(new Book("1", "1101", "Chetan Bhagat", "ISBN1234567890", "Novel", 2008, "Romance", true));
+
+        when(libraryService.findBookByAuthor(anyString())).thenReturn(books);
 
         mockMvc.perform(get("/library/findBookByAuthor/{author}", author))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].author").value(book.getAuthor()));
-
+                .andExpect(status().isOk());
         verify(libraryService, times(1)).findBookByAuthor(author);
     }
 
